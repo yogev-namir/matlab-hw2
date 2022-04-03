@@ -1,0 +1,30 @@
+rounds=100000;
+X=zeros(1,rounds);
+P=zeros(1,rounds);
+
+for i=1:rounds
+    count=1;
+    p=rand;
+    while true
+        if p<=0.6 % d1 passes to d2
+            count=count+1;
+            p=rand;
+        else % d1 misses
+            break;
+        end
+        if p<=0.9 % d2 passes to d1
+            count=count+1;
+            p=rand;
+        else % d2 misses
+            break;
+        end
+    end
+    
+    if count<=4
+        X(i)=1;
+    end
+    P(i)=mean(X(1:i));
+end
+plot(P)
+axis([0 rounds 0.6 0.85])
+hold on
